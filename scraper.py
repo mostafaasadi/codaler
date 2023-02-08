@@ -35,7 +35,9 @@ def check_update():
     global last_number
     last_audites = get_last_audites()
     if last_audites:
-        if last_audites['Total'] > last_number:
+        logging.info('new audites scraped')
+        if last_audites['Total'] != last_number:
+            logging.info(f'new audite number: {last_audites["Total"]}')
             last_number = last_audites['Total']
             return last_audites['Letters']
     return False
@@ -65,6 +67,7 @@ def save_audites(audites):
 
         try:
             session.commit()
+            logging.info('audites saved')
             return True
         except Exception as e:
             logging.error(e)
@@ -84,22 +87,12 @@ def run():
     logger.addHandler(logging.StreamHandler(stdout))
 
     last_number = 0
-    new_number = 1
 
     while True:
         last_audite = check_update()
         if last_audite:
-            logging.info('new audites scraped')
-            new_number = int(last_audite[-1].get('TracingNo'))
-            if new_number == last_number:
-                continue
-
-            logging.info(f'new audite number: {new_number}')
-            last_number = new_number
             audites = create_audite_object(last_audite)
-            save_status = save_audites(audites)
-            if save_status:
-                logging.info('audites saved')
+            save_audites(audites)
 
         sleep(60)
 
