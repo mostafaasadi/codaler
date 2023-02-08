@@ -1,20 +1,10 @@
 import logging
-import sqlalchemy
 from time import sleep
+from sys import stdout
+from db import Session
 from requests import get
 from models import Audite
-from sys import stdout, exit
 from fake_headers import Headers
-from sqlalchemy.orm import sessionmaker
-
-
-try:
-    db_engine = sqlalchemy.create_engine('sqlite:///audites.db')
-    Session = sessionmaker(bind=db_engine)
-    Audite.metadata.create_all(db_engine)
-except Exception as e:
-    logging.error(e)
-    exit(1)
 
 
 def get_last_audites():
@@ -47,7 +37,7 @@ def create_audite_object(request_audites):
     audites = []
     for request_audite in request_audites:
         audite_object = Audite(
-            TrackingNo=request_audite.get('TracingNo'),
+            TrackingNo=int(request_audite.get('TracingNo')),
             Url='https://codal.ir' + request_audite.get('Url', ''),
             Title=request_audite.get('Title'),
             Symbol=request_audite.get('Symbol'),
