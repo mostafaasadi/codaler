@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ورود - کدالر</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}"
+    media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"
+    media="screen,projection" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<style>
+  body {
+    background-image: url('{{ url_for('static', filename='img/bg.jpeg') }}');
+    background-repeat: no-repeat;
+    background-size: auto;
+  }
+</style>
+
+<body dir="rtl">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+  <section>
+    <div class="container">
+      <div class="row">
+        <form method="POST" action="/login" class="col push-s4 card-panel white">
+          {{ form.csrf_token }}
+          <div class="row">
+            <div class="input-field col s12">
+              {{ form.username(placeholder='Username') }}
+              <label class="black-text" for="username">نام‌کاربری</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              {{ form.password }}
+              <label class="black-text" for="password">گذرواژه</label>
+            </div>
+          </div>
+          <div class="row center">
+            <button class="btn waves-effect yellow black-text" type="submit" name="action">ورود
+              <i class="material-icons left">login</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <script type="text/javascript">
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, { edge: 'right' });
+    M.AutoInit();
+  </script>
+</body>
+
+</html>
