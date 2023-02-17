@@ -1,7 +1,7 @@
 import logging
+from app import db
 from time import sleep
 from sys import stdout
-from db import Session
 from requests import get
 from models import Audite
 from fake_headers import Headers
@@ -51,7 +51,7 @@ def create_audite_object(request_audites):
 
 
 def save_audites(audites):
-    with Session() as session:
+    with db.session() as session:
         for audite in audites:
             session.merge(audite)
 
