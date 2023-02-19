@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}پیشخوان{% endblock %}
+{% block content %}
+<section>
+  <div class="col s12 center">
+    <h2>آخرین اطلاعیه‌های کاربر</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == "success" %}
+    <div class="card green darken-1">
+      <div class="card-content white-text">
+        <span class="card-title center">{{ message }}</span>
+        {% elif category == "error" %}
+        <div class="card red darken-1">
+          <div class="card-content white-text">
+            <span class="card-title center">{{ message }}</span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="row center">
+          <div class="container">
+            <table class="pf centered responsive-table striped">
+              <thead>
+                <tr>
+                  <th>شماره</th>
+                  <th>نماد</th>
+                  <th>عنوان</th>
+                  <th>نام شرکت</th>
+                  <th>زمان</th>
+                  <th>لینک</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in audites %}
+                <tr>
+                  <td>{{ item['TrackingNo'] }}</td>
+                  <td>{{ item['Symbol'] }}</td>
+                  <td>{{ item['Title'] }}</td>
+                  <td>{{ item['CompanyName'] }}</td>
+                  <td>{{ item['PublishDateTime'] }}</td>
+                  <td>
+                    <a href="{{ item['Url'] }}" target="_blank">
+                      <i class="material-icons">link</i></a>
+                    <a href="{{ item['PdfUrl'] }}" target="_blank">
+                      <i class="material-icons">picture_as_pdf</i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</section>
+{% endblock %}% (ve

@@ -1,7 +1,7 @@
 from app import app, db
 from requests import get
 from fake_headers import Headers
-from models import User, LoginForm
+from models import User, LoginForm, Audite
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, login_required, current_user, logout_user
 
@@ -9,8 +9,18 @@ from flask_login import login_user, login_required, current_user, logout_user
 @app.route('/')
 @login_required
 def index():
+    try:
+        user = User.query.filter(
+                User.username.ilike(current_user.username)).first()
+        audites = Audite.query.filter(
+            Audite.Symbol.in_(user.symbols)).limit(20)
+    except Exception as e:
+        print(e)
+        audites = []
+        flash('خطایی رخ داده است', 'error')
     return render_template(
-        'index.html'
+        'index.html',
+        audites=audites
     )
 
 

@@ -41,6 +41,7 @@ def create_audite_object(request_audites):
             Url='https://codal.ir' + request_audite.get('Url', ''),
             Title=request_audite.get('Title'),
             Symbol=request_audite.get('Symbol'),
+            CompanyName=request_audite.get('CompanyName'),
             PdfUrl='https://codal.ir/' + request_audite.get('PdfUrl', ''),
             SentDateTime=request_audite.get('SentDateTime'),
             AttachmentUrl='https://codal.ir' + request_audite.get('AttachmentUrl'),
