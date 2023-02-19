@@ -6,6 +6,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from sqlalchemy import Column, Integer, String, Boolean, PickleType
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 class Audite(db.Model):
     __tablename__ = "audites"
     TrackingNo = Column(Integer, primary_key=True)
@@ -17,6 +18,7 @@ class Audite(db.Model):
     SentDateTime = Column(String)
     AttachmentUrl = Column(String)
     PublishDateTime = Column(String)
+    send = Column(Boolean, default=False)
 
 class User(db.Model):
     __tablename__ = 'user'

@@ -1,9 +1,8 @@
+from flask import Flask
 from config import Production
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, redirect, url_for
-
 
 app = Flask(__name__)
 app.config.from_object(Production)
