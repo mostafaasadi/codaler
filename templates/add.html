@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}افزودن نماد{% endblock %}
+{% block content %}
+<section>
+  <div class="col s12 center">
+    <h2>افزودن نماد</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == "success" %}
+    <div class="card green darken-1">
+      <div class="card-content white-text">
+        <span class="card-title center">{{ message }}</span>
+        {% elif category == "error" %}
+        <div class="card red darken-1">
+          <div class="card-content white-text">
+            <span class="card-title center">{{ message }}</span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        
+        <div class="row center">
+          <div class="container">
+
+
+            <form method="POST" action="/add" id="form">
+              <button class="btn waves-effect yellow black-text" type="submit" name="action">تایید
+                <i class="material-icons left">add</i>
+              </button>
+    
+              {% for s in symbols %}
+              <p>
+                <label>
+                  {% if s['sy'] in user_symbols %}
+                  <input type="checkbox" class="filled-in" checked="checked" name="i_symbols[]" value="{{ s['sy'] }}"  />
+                  {% else %}
+                  <input type="checkbox" name="i_symbols[]" value="{{ s['sy'] }}" />
+                  {% endif %}                  
+                  <span>{{ s['sy'] }} - {{ s['n'] }}</span>
+                </label>
+              </p>
+              {% endfor %}             
+            </form>
+          </div>
+        </div>
+
+</section>
+{% endblock %}

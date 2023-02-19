@@ -2,9 +2,8 @@ from app import db
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Boolean
 from wtforms import StringField, PasswordField, SubmitField
+from sqlalchemy import Column, Integer, String, Boolean, PickleType
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class Audite(db.Model):
@@ -27,6 +26,8 @@ class User(db.Model):
     role = Column(Integer(), default=0)
     name = Column(String(32), nullable=True, unique=False)
     authenticated = Column(Boolean, default=False)
+    symbols = Column(PickleType, default=[])
+    phone = Column(String(10), nullable=True, unique=False)
 
     def get_id(self):
         return(self.id)
